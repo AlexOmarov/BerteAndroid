@@ -7,19 +7,21 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.berteandroid.ui.theme.BerteAndroidTheme
@@ -27,7 +29,7 @@ import com.example.berteandroid.ui.theme.BerteAndroidTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { FirstScreen() }
+        setContent { BerteAndroidTheme { FirstScreen() } }
     }
 }
 
@@ -41,21 +43,45 @@ data class ElementData(val header: String, val description: String)
 )
 @Composable
 fun FirstScreen() {
-    BerteAndroidTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            UserList(
-                listOf(
-                    ElementData(
-                        "John McFaul",
-                        "Foolish description for record\nFoolish description for record\nFoolish description for record\nFoolish description for record"
-                    ),
-                    ElementData("John McFaul", "Foolish description for record"),
-                    ElementData("John McFaul", "Foolish description for record"),
-                    ElementData("John McFaul", "Foolish description for record"),
-                )
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
+        SearchBar()
+        UserList(
+            listOf(
+                ElementData(
+                    "John McFaul",
+                    "Foolish description for record\nFoolish description for record\nFoolish description for record\nFoolish description for record"
+                ),
+                ElementData("John McFaul", "Foolish description for record"),
+                ElementData("John McFaul", "Foolish description for record"),
+                ElementData("John McFaul", "Foolish description for record"),
             )
-        }
+        )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchBar(modifier: Modifier = Modifier) {
+    TextField(
+        value = "",
+        onValueChange = {},
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = null
+            )
+        },
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        placeholder = {
+            Text(stringResource(R.string.placeholder_search))
+        },
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .heightIn(min = 56.dp)
+    )
 }
 
 @Composable
@@ -114,7 +140,9 @@ fun UserListRowContent(data: ElementData) {
             shape = MaterialTheme.shapes.medium,
             shadowElevation = 1.dp,
             color = surfaceColor,
-            modifier = Modifier.animateContentSize().padding(1.dp)
+            modifier = Modifier
+                .animateContentSize()
+                .padding(1.dp)
         ) {
             Text(
                 text = data.description,
