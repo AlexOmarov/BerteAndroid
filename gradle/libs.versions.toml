@@ -10,7 +10,6 @@ koin = '3.3.2'
 compose_material = '1.1.0-alpha05'
 core_ktx = '1.9.0'
 lifecycle_ktx = '2.5.1'
-lifecycle_livedata = '2.5.1'
 activity_compose = '1.6.1'
 junit = '4.13.2'
 androidx_junit = '1.1.5'
@@ -33,13 +32,13 @@ koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = 
 
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core_ktx" }
 lifecycle-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle_ktx" }
-lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "lifecycle_livedata" }
-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle_livedata" }
+lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle_ktx" }
 
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity_compose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material3:material3", version.ref = "compose_material" }
+compose-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 

@@ -61,10 +61,10 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.ktx)
-    implementation(libs.lifecycle.livedata)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.activity.compose)
     implementation(libs.compose.ui)
+    implementation(libs.compose.livedata)
     implementation(libs.compose.material)
     implementation(libs.room.runtime)
     implementation(libs.room.compiler)

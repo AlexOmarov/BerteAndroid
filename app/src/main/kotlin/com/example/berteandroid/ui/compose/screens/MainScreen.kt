@@ -5,6 +5,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.example.berteandroid.business.UserViewModel
 import com.example.berteandroid.persistence.entity.User
 import com.example.berteandroid.ui.compose.defaults.BerteBottomNavigation
@@ -22,9 +24,14 @@ fun MainScreen(userViewModel: UserViewModel = koinViewModel()) {
     BerteAndroidTheme {
         Scaffold(bottomBar = { BerteBottomNavigation() }) {
             MainScreenContent(
-                listOf(),
-                /* TODO: Cannot get Transformations from lib for some reason
-                * Transformations.map(userViewModel.getUserByName("WOW")) { user: User ->
+                userViewModel.getUserByName("WOW").map { user: User ->
+                    listOf(ElementData(
+                        user.name,
+                        user.id.toString()
+                    ))
+                },
+
+               /* Transformations.map(userViewModel.getUserByName("WOW")) { user: User ->
                     ElementData(
                         user.name,
                         user.id.toString()
@@ -37,7 +44,7 @@ fun MainScreen(userViewModel: UserViewModel = koinViewModel()) {
 }
 
 @Composable
-fun MainScreenContent(data: List<ElementData>, padding: PaddingValues) {
+fun MainScreenContent(data: LiveData<List<ElementData>>, padding: PaddingValues) {
     Column(Modifier.padding(padding)) {
         SearchBar()
         HomeSection { AlignBodySection(data) }
