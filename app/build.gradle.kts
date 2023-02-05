@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.compiler)
     implementation(libs.room.ktx)
+    implementation(libs.retrofit.converter)
+    implementation(libs.retrofit)
 
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.koin.compose)
