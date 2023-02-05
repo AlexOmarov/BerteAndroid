@@ -1,4 +1,4 @@
-package com.example.berteandroid.ui.theme
+package com.example.berteandroid.ui.compose.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -1,44 +1,53 @@
-@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage") // TODO: Remove once KTIJ-19369 is fixed
+@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage") // TODO: Remove after KTIJ-19369
 plugins {
     alias(libs.plugins.android)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.android.kotlin)
 }
 
 android {
-    namespace="com.example.berteandroid"
-    compileSdk=libs.versions.sdk.compile.get().toInt()
+    namespace = "com.example.berteandroid"
+    compileSdk = libs.versions.sdk.compile.get().toInt()
 
     defaultConfig {
-        applicationId="com.example.berteandroid"
-        minSdk=libs.versions.sdk.min.get().toInt()
-        targetSdk=libs.versions.sdk.compile.get().toInt()
-        versionCode=1
-        versionName="1.0"
+        applicationId = "com.example.berteandroid"
+        minSdk = libs.versions.sdk.min.get().toInt()
+        targetSdk = libs.versions.sdk.compile.get().toInt()
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner="androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary=true
+            useSupportLibrary = true
         }
+    }
+
+    // Some library (room / koin) has this transitive dep. We already have all the classes in android annotations lib
+    configurations {
+        implementation.get().exclude(mapOf("group" to "org.jetbrains", "module" to "annotations"))
     }
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled=true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility=JavaVersion.VERSION_1_8
-        targetCompatibility=JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        compose=true
+        compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion=libs.versions.androidx.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -48,13 +57,25 @@ android {
 }
 
 dependencies {
+    annotationProcessor(libs.room.compiler)
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.ktx)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.activity.compose)
     implementation(libs.compose.ui)
     implementation(libs.compose.material)
+    implementation(libs.room.runtime)
+    implementation(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.koin.compose)
+    implementation(libs.koin)
+
+    ksp(libs.room.compiler)
+
     debugImplementation(libs.compose.ui.tooling)
 
     testImplementation(libs.junit)
