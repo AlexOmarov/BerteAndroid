@@ -17,7 +17,7 @@ interface UserDao {
     fun loadAllByIds(userIds: List<UUID>): LiveData<List<User>>
 
     @Query("SELECT * FROM user WHERE name LIKE :name LIMIT 1")
-    fun findByName(name: String): LiveData<User>
+    fun findByName(name: String): LiveData<User?>
 
     @Insert
     suspend fun insertAll(vararg users: User)

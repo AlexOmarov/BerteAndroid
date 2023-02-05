@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,11 +23,12 @@ import com.example.berteandroid.ui.compose.dto.ElementData
 
 @Composable
 fun AlignBodySection(data: LiveData<List<ElementData>>) {
-    val stateData = data.observeAsState()
+    val breedItems by data.observeAsState()
+    val items = breedItems ?: listOf()
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp)
-    ) { items(listOf<ElementData>()) { Row { AlignYourBodyElement(it) } } }
+    ) { items(items) { Row { AlignYourBodyElement(it) } } }
 }
 
 @Composable

@@ -24,19 +24,14 @@ fun MainScreen(userViewModel: UserViewModel = koinViewModel()) {
     BerteAndroidTheme {
         Scaffold(bottomBar = { BerteBottomNavigation() }) {
             MainScreenContent(
-                userViewModel.getUserByName("WOW").map { user: User ->
-                    listOf(ElementData(
-                        user.name,
-                        user.id.toString()
-                    ))
+                userViewModel.getAll().map { users: List<User> ->
+                    users.map { user ->
+                        ElementData(
+                            user.name,
+                            user.id.toString()
+                        )
+                    }
                 },
-
-               /* Transformations.map(userViewModel.getUserByName("WOW")) { user: User ->
-                    ElementData(
-                        user.name,
-                        user.id.toString()
-                    )
-                }*/
                 it
             )
         }
