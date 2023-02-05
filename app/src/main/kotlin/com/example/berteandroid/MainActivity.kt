@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
 
 data class ElementData(val header: String, val description: String)
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(name = "Light Mode")
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -58,11 +61,13 @@ fun FirstScreen() {
     )
 
     BerteAndroidTheme {
-        Column(Modifier.background(MaterialTheme.colorScheme.background).fillMaxHeight().fillMaxWidth()) {
-            SearchBar()
-            HomeSection { AlignBodyList(data) }
-            HomeSection { FavoriteCollectionCardList(data) }
-            Spacer(Modifier.height(16.dp))
+        Scaffold(bottomBar = { BerteBottomNavigation() }) { contentPadding ->
+            Column(Modifier.padding(contentPadding)) {
+                SearchBar()
+                HomeSection { AlignBodyList(data) }
+                HomeSection { FavoriteCollectionCardList(data) }
+                Spacer(Modifier.height(16.dp))
+            }
         }
     }
 }
@@ -79,6 +84,38 @@ fun HomeSection(content: @Composable () -> Unit) {
         )
 
         content()
+    }
+}
+
+@Composable
+fun BerteBottomNavigation() {
+    NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
+        NavigationBarItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.List,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(stringResource(R.string.bottom_navigation_home))
+            },
+            selected = true,
+            onClick = {}
+        )
+        NavigationBarItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(stringResource(R.string.bottom_navigation_profile))
+            },
+            selected = false,
+            onClick = {}
+        )
     }
 }
 

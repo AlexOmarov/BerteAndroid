@@ -4,4 +4,6 @@
     <string name="ab1_inversions">Inversions</string>
     <string name="fc2_nature_meditations">Meditations</string>
     <string name="home_section_header">Home section header</string>
+    <string name="bottom_navigation_home">Bottom nav home</string>
+    <string name="bottom_navigation_profile">Bottom nav profile</string>
 </resources>
