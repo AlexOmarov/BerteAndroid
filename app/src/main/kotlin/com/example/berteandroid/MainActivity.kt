@@ -4,22 +4,23 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +30,7 @@ import com.example.berteandroid.ui.theme.BerteAndroidTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { BerteAndroidTheme { FirstScreen() } }
+        setContent { FirstScreen() }
     }
 }
 
@@ -43,19 +44,20 @@ data class ElementData(val header: String, val description: String)
 )
 @Composable
 fun FirstScreen() {
-    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
-        SearchBar()
-        UserList(
-            listOf(
-                ElementData(
-                    "John McFaul",
-                    "Foolish description for record\nFoolish description for record\nFoolish description for record\nFoolish description for record"
-                ),
-                ElementData("John McFaul", "Foolish description for record"),
-                ElementData("John McFaul", "Foolish description for record"),
-                ElementData("John McFaul", "Foolish description for record"),
-            )
-        )
+    val data = listOf(
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+    )
+
+    BerteAndroidTheme {
+        Column(Modifier.background(MaterialTheme.colorScheme.background).fillMaxHeight().fillMaxWidth()) {
+            SearchBar()
+            AlignBodyList(data)
+            Spacer(modifier = Modifier.height(16.dp))
+            FavoriteCollectionCardList(data)
+        }
     }
 }
 
@@ -85,70 +87,73 @@ fun SearchBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun UserList(data: List<ElementData>) {
-    LazyColumn {
-        items(data) { data ->
-            UserListRow(data)
+fun AlignBodyList(data: List<ElementData>) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp)
+    ) { items(data) { Row { AlignYourBodyElement() } } }
+}
+
+@Composable
+fun FavoriteCollectionCardList(data: List<ElementData>) {
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.height(120.dp)
+    ) { items(data) { FavoriteCollectionCard() } }
+}
+
+@Composable
+fun AlignYourBodyElement(modifier: Modifier = Modifier) {
+    Surface(Modifier.background(MaterialTheme.colorScheme.background)) {
+        Column(
+            modifier = modifier.background(MaterialTheme.colorScheme.background),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(R.drawable.ic_launcher_background),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(88.dp)
+                    .clip(CircleShape)
+            )
+            Text(
+                text = stringResource(R.string.ab1_inversions),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.paddingFromBaseline(
+                    top = 24.dp, bottom = 8.dp
+                )
+            )
         }
     }
 }
 
-@Composable
-fun UserListRow(data: ElementData) {
-    Row(modifier = Modifier.padding(all = 8.dp)) {
-        UserListRowImage()
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        UserListRowContent(data)
-
-    }
-}
 
 @Composable
-fun UserListRowImage() {
-    Image(
-        painter = painterResource(R.drawable.ic_launcher_background),
-        contentDescription = "Contact profile picture",
-        modifier = Modifier
-            .size(40.dp)
-            .clip(CircleShape)
-            .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape)
-    )
-}
-
-@Composable
-fun UserListRowContent(data: ElementData) {
-    // We keep track if the message is expanded or not in this
-    // variable
-    var isExpanded by remember { mutableStateOf(false) }
-
-    val surfaceColor by animateColorAsState(
-        if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-    )
-
-    Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
-        Text(
-            text = data.header,
-            color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.bodyLarge
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Surface(
-            shape = MaterialTheme.shapes.medium,
-            shadowElevation = 1.dp,
-            color = surfaceColor,
-            modifier = Modifier
-                .animateContentSize()
-                .padding(1.dp)
+fun FavoriteCollectionCard(modifier: Modifier = Modifier) {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .height(56.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(182.dp)
         ) {
+            Image(
+                painter = painterResource(R.drawable.ic_launcher_background),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(56.dp)
+            )
             Text(
-                text = data.description,
-                maxLines = if (isExpanded) Int.MAX_VALUE else 1,
-                modifier = Modifier.padding(all = 4.dp),
-                style = MaterialTheme.typography.bodySmall
+                text = stringResource(R.string.fc2_nature_meditations),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }
