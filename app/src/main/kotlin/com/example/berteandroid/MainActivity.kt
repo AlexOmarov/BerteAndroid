@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.berteandroid.ui.theme.BerteAndroidTheme
+import java.util.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,15 +50,35 @@ fun FirstScreen() {
         ElementData("John McFaul", "Foolish description for record"),
         ElementData("John McFaul", "Foolish description for record"),
         ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
+        ElementData("John McFaul", "Foolish description for record"),
     )
 
     BerteAndroidTheme {
         Column(Modifier.background(MaterialTheme.colorScheme.background).fillMaxHeight().fillMaxWidth()) {
             SearchBar()
-            AlignBodyList(data)
-            Spacer(modifier = Modifier.height(16.dp))
-            FavoriteCollectionCardList(data)
+            HomeSection { AlignBodyList(data) }
+            HomeSection { FavoriteCollectionCardList(data) }
+            Spacer(Modifier.height(16.dp))
         }
+    }
+}
+
+@Composable
+fun HomeSection(content: @Composable () -> Unit) {
+    Column {
+        Text(
+            text = stringResource(R.string.home_section_header).uppercase(Locale.getDefault()),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
+                .padding(horizontal = 16.dp)
+        )
+
+        content()
     }
 }
 
