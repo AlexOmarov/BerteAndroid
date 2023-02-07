@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import com.example.berteandroid.business.UserViewModel
+import com.example.berteandroid.business.viewmodel.UserViewModel
 import com.example.berteandroid.persistence.entity.User
 import com.example.berteandroid.persistence.repository.UserDao
 import com.example.berteandroid.system.database.AppDatabase

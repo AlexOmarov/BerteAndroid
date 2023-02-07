@@ -1,4 +1,4 @@
-package com.example.berteandroid.business
+package com.example.berteandroid.business.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData

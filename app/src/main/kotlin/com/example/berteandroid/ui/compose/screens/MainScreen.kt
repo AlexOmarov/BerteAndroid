@@ -10,7 +10,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.example.berteandroid.business.UserViewModel
+import com.example.berteandroid.business.viewmodel.UserViewModel
 import com.example.berteandroid.persistence.entity.User
 import com.example.berteandroid.system.web.dto.Mars
 import com.example.berteandroid.ui.compose.defaults.BerteBottomNavigation

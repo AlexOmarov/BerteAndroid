@@ -76,6 +76,8 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.koin.compose)
     implementation(libs.koin)
+    implementation(libs.work.ktx)
+
 
     ksp(libs.room.compiler)
 
