@@ -3,7 +3,10 @@ package com.example.berteandroid.ui.compose.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
@@ -32,6 +35,7 @@ fun MainScreen(userViewModel: UserViewModel = koinViewModel()) {
                         )
                     }
                 },
+                userViewModel.getDataFromInternet(),
                 it
             )
         }
@@ -39,10 +43,13 @@ fun MainScreen(userViewModel: UserViewModel = koinViewModel()) {
 }
 
 @Composable
-fun MainScreenContent(data: LiveData<List<ElementData>>, padding: PaddingValues) {
+fun MainScreenContent(data: LiveData<List<ElementData>>, dataFromNet: LiveData<List<String>>, padding: PaddingValues) {
     Column(Modifier.padding(padding)) {
+        val state by dataFromNet.observeAsState()
+        val res = state ?: listOf()
         SearchBar()
         HomeSection { AlignBodySection(data) }
         HomeSection { FavoriteCollectionCardSection(data) }
+        Text(res.toString())
     }
 }

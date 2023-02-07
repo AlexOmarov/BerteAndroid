@@ -42,7 +42,8 @@ compose-material = { module = "androidx.compose.material3:material3", version.re
 compose-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-converter = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-converter-scalar = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 

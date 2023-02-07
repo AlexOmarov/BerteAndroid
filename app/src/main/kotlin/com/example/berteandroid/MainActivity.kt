@@ -9,6 +9,7 @@ import com.example.berteandroid.business.UserViewModel
 import com.example.berteandroid.persistence.entity.User
 import com.example.berteandroid.persistence.repository.UserDao
 import com.example.berteandroid.system.database.AppDatabase
+import com.example.berteandroid.system.web.WebService
 import com.example.berteandroid.ui.compose.screens.MainScreen
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -36,7 +37,8 @@ class MainActivity : ComponentActivity() {
         val appModule = module {
             single { Room.databaseBuilder(get(), AppDatabase::class.java, "berte-db").build() }
             single { get<AppDatabase>().userDao() }
-            viewModel { UserViewModel(get()) }
+            single { WebService() }
+            viewModel { UserViewModel(get(), get()) }
         }
         startKoin {
             androidLogger()
