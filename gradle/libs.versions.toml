@@ -59,4 +59,4 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 android = { id = "com.android.application", version.ref = "android" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 android-library = { id = "com.android.library", version.ref = "android" }
-android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "android_kotlin" }
+android-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.8.10" }

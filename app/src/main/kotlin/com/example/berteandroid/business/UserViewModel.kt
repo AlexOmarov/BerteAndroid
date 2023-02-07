@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.berteandroid.persistence.entity.User
 import com.example.berteandroid.persistence.repository.UserDao
 import com.example.berteandroid.system.web.WebService
+import com.example.berteandroid.system.web.dto.Mars
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val userDao: UserDao, private val webService: WebService) : ViewModel() {
@@ -16,8 +17,8 @@ class UserViewModel(private val userDao: UserDao, private val webService: WebSer
         return userDao.getAll()
     }
 
-    fun getDataFromInternet(): LiveData<List<String>> {
-        val result = MutableLiveData<List<String>>()
+    fun getDataFromInternet(): LiveData<List<Mars>> {
+        val result = MutableLiveData<List<Mars>>()
         viewModelScope.launch {
             result.value = webService.getData()
         }

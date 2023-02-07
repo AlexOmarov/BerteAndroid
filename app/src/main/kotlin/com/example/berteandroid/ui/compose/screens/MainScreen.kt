@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.berteandroid.business.UserViewModel
 import com.example.berteandroid.persistence.entity.User
+import com.example.berteandroid.system.web.dto.Mars
 import com.example.berteandroid.ui.compose.defaults.BerteBottomNavigation
 import com.example.berteandroid.ui.compose.defaults.HomeSection
 import com.example.berteandroid.ui.compose.defaults.SearchBar
@@ -43,7 +44,7 @@ fun MainScreen(userViewModel: UserViewModel = koinViewModel()) {
 }
 
 @Composable
-fun MainScreenContent(data: LiveData<List<ElementData>>, dataFromNet: LiveData<List<String>>, padding: PaddingValues) {
+fun MainScreenContent(data: LiveData<List<ElementData>>, dataFromNet: LiveData<List<Mars>>, padding: PaddingValues) {
     Column(Modifier.padding(padding)) {
         val state by dataFromNet.observeAsState()
         val res = state ?: listOf()

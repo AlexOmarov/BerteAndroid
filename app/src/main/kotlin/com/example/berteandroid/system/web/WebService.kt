@@ -1,5 +1,6 @@
 package com.example.berteandroid.system.web
 
+import com.example.berteandroid.system.web.dto.Mars
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
@@ -25,5 +26,5 @@ class WebService {
 
 interface MarsApiService {
     @GET("photos")
-    suspend fun getPhotos(): List<String>
+    suspend fun getPhotos(): List<Mars>
 }
