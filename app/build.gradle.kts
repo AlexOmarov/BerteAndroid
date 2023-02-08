@@ -141,7 +141,7 @@ tasks.withType<Test> {
         showCauses = true
         showStackTraces = true
     }
-    finalizedBy("createReleaseUnitTestCoverageReport") // Launch JaCoCo coverage verification
+    finalizedBy("createDebugUnitTestCoverageReport") // Launch JaCoCo coverage verification
 }
 
 // Configure generated JaCoCo report
