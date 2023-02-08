@@ -90,6 +90,10 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test)
     androidTestImplementation(libs.compose.ui.tooling)
     androidTestImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.androidx.rules)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.androidx.work.testing)
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
