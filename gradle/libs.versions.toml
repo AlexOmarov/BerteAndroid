@@ -21,6 +21,7 @@ androidx_espresso = '3.5.1'
 androidx_compose_compiler = '1.4.1-dev-k1.8.10-c312d77f4cb'
 sdk-min = '26'
 sdk-compile = '33'
+sonarqube = '3.3'
 
 
 [libraries]
@@ -68,3 +69,4 @@ android = { id = "com.android.application", version.ref = "android" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 android-library = { id = "com.android.library", version.ref = "android" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.8.10" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }
