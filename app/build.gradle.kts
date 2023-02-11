@@ -89,6 +89,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.junit)
+    testImplementation(libs.mockito.kotlin)
 
     androidTestImplementation(libs.androidx.espresso)
     androidTestImplementation(libs.compose.ui.test)
@@ -115,13 +116,16 @@ jacoco {
 
 }
 
-sonarqube  {
+sonarqube {
     properties {
         property("sonar.projectKey", "AlexOmarov_BerteAndroid")
         property("sonar.organization", "alexomarov")
         property("sonar.qualitygate.wait", "true")
         property("sonar.core.codeCoveragePlugin", "jacoco")
-        property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+        property(
+            "sonar.coverage.jacoco.xmlReportPaths",
+            "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+        )
         property("sonar.cpd.exclusions", exclusions)
         property("sonar.jacoco.excludes", exclusions)
         property("sonar.coverage.exclusions", exclusions)
@@ -129,7 +133,6 @@ sonarqube  {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
     testLogging {
         events = setOf(
             org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
@@ -168,16 +171,22 @@ tasks.withType<JacocoReport> {
 // Print total coverage to console
 tasks.register("coverage") {
     doLast {
-        val testReportFile = project.file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+        val testReportFile =
+            project.file("${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
         if (testReportFile.exists()) {
             val str: String = testReportFile.readText().replace("<!DOCTYPE[^>]*>".toRegex(), "")
-            val rootNode = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(org.xml.sax.InputSource(StringReader(str)))
+            val rootNode =
+                javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                    .parse(org.xml.sax.InputSource(StringReader(str)))
             var totalCovered = 0
             var totalMissed = 0
 
-            val counters: org.w3c.dom.NodeList = javax.xml.xpath.XPathFactory.newInstance().newXPath().compile("//counter")
-                .evaluate(rootNode, javax.xml.xpath.XPathConstants.NODESET) as org.w3c.dom.NodeList
+            val counters: org.w3c.dom.NodeList =
+                javax.xml.xpath.XPathFactory.newInstance().newXPath().compile("//counter")
+                    .evaluate(
+                        rootNode,
+                        javax.xml.xpath.XPathConstants.NODESET
+                    ) as org.w3c.dom.NodeList
 
             for (i in 0 until counters.length) {
                 try {
