@@ -1,6 +1,6 @@
 ## Contributing
 
-New branch with story slack (`ANDR-...`) as a name should be created for each new task.
+New branch with story slack (`BERT-...`) as a name should be created for each new task.
 
 Each contribution to master branch MUST include following steps:
 

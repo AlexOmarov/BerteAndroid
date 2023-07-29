@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.example.berteandroid.R
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun SearchBar(modifier: Modifier = Modifier) {
     TextField(
         value = "",
@@ -24,8 +23,10 @@ fun SearchBar(modifier: Modifier = Modifier) {
                 contentDescription = null
             )
         },
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+            disabledContainerColor = MaterialTheme.colorScheme.surface,
         ),
         placeholder = {
             Text(stringResource(R.string.placeholder_search))

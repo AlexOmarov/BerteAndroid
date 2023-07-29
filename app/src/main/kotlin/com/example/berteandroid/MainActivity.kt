@@ -14,6 +14,7 @@ import com.example.berteandroid.system.database.AppDatabase
 import com.example.berteandroid.system.web.WebService
 import com.example.berteandroid.ui.compose.screens.MainScreen
 import kotlinx.coroutines.launch
+import org.koin.android.BuildConfig
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
